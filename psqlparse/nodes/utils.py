@@ -2,7 +2,6 @@ import importlib
 
 from six import next, iterkeys, itervalues
 
-
 module = importlib.import_module('psqlparse.nodes')
 
 

@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import six
 
 from .utils import build_from_item
@@ -5,15 +7,46 @@ from .nodes import Node
 
 
 class Statement(Node):
-
     statement = ''
 
     def __str__(self):
         return self.statement
 
 
-class SelectStmt(Statement):
+class PLpgSQLtype(Statement):
+    statement = 'PLPGSQL TYPE'
 
+    def __init__(self, obj):
+        self.typname = build_from_item(obj, 'typname')
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and other.typname == self.typname
+
+
+class PLpgSQLrow(Statement):
+    statement = 'PLpgSQL row'
+
+
+class PLpgSQLvar(Statement):
+    statement = 'PLPGSQL VAR'
+
+    def __init__(self, obj):
+        self.refname = build_from_item(obj, 'refname')
+        self.datatype = build_from_item(obj, 'datatype')
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and other.refname == self.refname and other.datatype == self.datatype
+
+
+class PLpgSQLfunction(Statement):
+    statement = 'PLPGSQL FUNCTION'
+
+    def __init__(self, obj):
+        self.datums = build_from_item(obj, 'datums')
+        self.action = build_from_item(obj, 'action')
+
+
+class SelectStmt(Statement):
     statement = 'SELECT'
 
     def __init__(self, obj):
@@ -59,7 +92,6 @@ class SelectStmt(Statement):
 
 
 class InsertStmt(Statement):
-
     statement = 'INSERT INTO'
 
     def __init__(self, obj):
@@ -80,7 +112,6 @@ class InsertStmt(Statement):
 
 
 class UpdateStmt(Statement):
-
     statement = 'UPDATE'
 
     def __init__(self, obj):
@@ -106,7 +137,6 @@ class UpdateStmt(Statement):
 
 
 class DeleteStmt(Statement):
-
     statement = 'DELETE FROM'
 
     def __init__(self, obj):
