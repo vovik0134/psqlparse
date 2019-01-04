@@ -20,7 +20,8 @@ class PLpgSQLtype(Statement):
         self.typname = build_from_item(obj, 'typname')
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and other.typname == self.typname
+        return isinstance(other, self.__class__) \
+               and other.typname == self.typname
 
 
 class PLpgSQLrow(Statement):
@@ -35,7 +36,9 @@ class PLpgSQLvar(Statement):
         self.datatype = build_from_item(obj, 'datatype')
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and other.refname == self.refname and other.datatype == self.datatype
+        return isinstance(other, self.__class__) \
+               and other.refname == self.refname \
+               and other.datatype == self.datatype
 
 
 class PLpgSQLfunction(Statement):

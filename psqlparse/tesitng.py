@@ -8,5 +8,4 @@ class PLpgSQLTestCase(unittest.TestCase):
         self.assertIsInstance(stmt, nodes.PLpgSQLfunction)
 
     def assertHasVariable(self, stmt, variable):
-        if not variable in stmt.datums:
-            self.fail("Variable %s not found" % variable.refname)
+        self.assertIn(variable, stmt.datums)

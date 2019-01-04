@@ -27,7 +27,19 @@ class ReturnTestCase(PLpgSQLTestCase):
         stmt = parse_plpgsql(query).pop()
 
         self.assertFunction(stmt)
-        self.assertHasVariable(stmt, PLpgSQLvar({"refname": "found",
-                                                 "datatype": {"PLpgSQL_type": {"typname": "UNKNOWN"}}}))
-        self.assertHasVariable(stmt, PLpgSQLvar({"refname": "r",
-                                                 "datatype": {"PLpgSQL_type": {"typname": "foo%rowtype"}}}))
+        self.assertHasVariable(stmt, PLpgSQLvar({
+            "refname": "found",
+            "datatype": {
+                "PLpgSQL_type": {
+                    "typname": "UNKNOWN"
+                }
+            }
+        }))
+        self.assertHasVariable(stmt, PLpgSQLvar({
+            "refname": "r",
+            "datatype": {
+                "PLpgSQL_type": {
+                    "typname": "foo%rowtype"
+                }
+            }
+        }))
