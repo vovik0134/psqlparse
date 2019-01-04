@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import six
 
 from .utils import build_from_item
